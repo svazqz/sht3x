@@ -1,5 +1,5 @@
-#ifndef _SHT3X_H
-#define _SHT3X_H
+#ifndef SHT3X_H
+#define SHT3X_H
 
 #include <soft_i2c.h>
 
@@ -16,7 +16,11 @@ typedef struct {
   float humidity;
 } SHT3X;
 
-void readSensor(SHT3X*);
+/* On failure, leaves the previous sample unchanged. */
+bool readSensorChecked(SHT3X *sensor);
+
+/* Compatibility wrapper: writes NaN for both measurements on failure. */
+void readSensor(SHT3X *sensor);
 
 #ifdef __cplusplus
 }
