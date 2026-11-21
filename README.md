@@ -1,7 +1,32 @@
-# sht3x
+# ![SHT3x Driver](docs/readme/banner.svg)
 
-Temperature and humidity sensor driver. readSensorChecked verifies the CRC of both measurements and preserves the last sample on failure. The legacy readSensor wrapper writes NaN on failure.
+A C driver for Sensirion SHT3x sensors. `readSensorChecked()` validates both CRCs and leaves the previous sample intact when a read fails. The compatibility wrapper returns NaN measurements on failure.
 
-Run make to initialize the pinned soft_i2c submodule if needed and build build/libsht3x.a. Run make test for host-side tests with a simulated I²C bus.
+[Quick start](#quick-start) · [Validation](#validation) · [Project layout](#project-layout)
 
-For Raspberry Pi applications, build soft_i2c from the submodule with WiringPi installed. Link libsht3x.a before libsoft_i2c.a, followed by -lwiringPi. Initialize the default bus with setupI2C before calling the driver.
+## Quick start
+
+Use Git, a C11 compiler, and Make. The first build initializes the pinned `soft_i2c` submodule.
+
+```sh
+make
+```
+
+The driver archive is `build/libsht3x.a`. Build the bundled `soft_i2c` library with WiringPi installed on the Raspberry Pi. Link both archives into your app and initialize the bus with `setupI2C()`.
+
+## Validation
+
+```sh
+make test
+```
+
+The tests simulate I²C and run without connected hardware. Checks cover conversion, both checksums, acknowledgments, and bus errors.
+
+## Project layout
+
+| Path | Purpose |
+| --- | --- |
+| [`include/`](include/) | Public C interface |
+| [`src/`](src/) | Driver implementation |
+| [`tests/`](tests/) | Mock-bus unit tests |
+| [`soft_i2c/`](soft_i2c/) | Pinned GPIO-based I²C submodule |
