@@ -2,6 +2,8 @@
 
 A C driver for Sensirion SHT3x sensors. `readSensorChecked()` validates both CRCs and leaves the previous sample intact when a read fails. The compatibility wrapper returns NaN measurements on failure.
 
+[![Validation](https://github.com/svazqz/sht3x/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/svazqz/sht3x/actions/workflows/ci.yml)
+
 [Quick start](#quick-start) · [Validation](#validation) · [Project layout](#project-layout)
 
 ## Quick start
